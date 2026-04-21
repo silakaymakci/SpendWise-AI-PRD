@@ -1,28 +1,28 @@
-# SpendWise AI - Ürün Gereksinim Belgesi (PRD)
+# SynthFinance AI - Sentetik Finansal Veri Üreticisi (PRD)
 
 ## 1. Proje Özeti
-SpendWise AI, kullanıcıların günlük harcamalarını takip etmelerini sağlayan ve yapay zeka desteğiyle kişiselleştirilmiş finansal tavsiyeler sunan bir bütçe yönetimi asistanıdır.
+SynthFinance AI, gerçek kullanıcı verilerini riske atmadan, makine öğrenmesi modellerini eğitmek ve test etmek için gerçekçi ancak tamamen yapay (sentetik) finansal zaman serisi verileri üreten bir sistemdir.
 
 ## 2. Hedef Kitle
-- Harcamalarını kontrol altında tutmak isteyen öğrenciler.
-- Aylık bütçe planlaması yapmakta zorlanan bireyler.
-- Finansal verilerini basit ve anlaşılır bir şekilde analiz etmek isteyen kullanıcılar.
+- Finansal modelleme üzerinde çalışan veri bilimciler.
+- Veri gizliliği (GDPR/KVKK) endişesi olan FinTech geliştiricileri.
+- Algoritmik ticaret stratejilerini test etmek isteyen araştırmacılar.
 
 ## 3. MVP (Minimum Uygulanabilir Ürün) Kapsamı
-Bu projenin ilk aşamasında (MVP) aşağıdaki temel özellikler yer alacaktır:
-- **Harcama Girişi:** Kullanıcıların harcama tutarı, tarih ve kategori (Gıda, Ulaşım, Eğlence vb.) bilgisini girebilmesi.
-- **Bütçe Durum Paneli:** Toplam harcama ve kalan limitin görselleştirilmesi.
-- **AI Tasarruf Asistanı:** Kullanıcının harcama alışkanlıklarını analiz ederek haftalık bazda tasarruf önerileri sunan bir yapay zeka modülü.
+- **Veri Modelleme:** Rastgele yürüyüş (random walk) ve Monte Carlo simülasyonu kullanarak sentetik borsa/fiyat verisi oluşturma.
+- **Parametrik Ayarlar:** Kullanıcının volatilite (oynaklık) ve trend gibi değişkenleri belirleyebilmesi.
+- **Export Özelliği:** Üretilen veriyi CSV formatında dışa aktarma (model eğitimi için hazır formatta).
 
 ## 4. Teknik Gereksinimler
 - **Dil:** Python
-- **Arayüz:** Streamlit (Hızlı prototipleme için)
-- **AI Entegrasyonu:** OpenAI GPT-4 veya Google Gemini API
-- **Veri Saklama:** CSV veya SQLite
+- **Matematiksel Modeller:** Olasılık dağılımları (Normal Dağılım), Stokastik Süreçler.
+- **Kütüphaneler:** NumPy, Pandas, Matplotlib/Seaborn (görselleştirme için).
+- **Arayüz:** Streamlit (Kullanıcı parametreleri ayarlayıp "Generate" butonuna basacak).
 
 ## 5. Başarı Metrikleri
-- Kullanıcının manuel veri giriş süresinin 10 saniyenin altında olması.
-- AI tarafından sunulan tavsiyelerin kullanıcılar tarafından "faydalı" olarak işaretlenme oranı.
+- Üretilen verilerin istatistiksel özelliklerinin (mean, variance) gerçek borsa verileriyle benzerlik göstermesi.
+- Kullanıcı dostu arayüz üzerinden verinin 3 saniye içinde üretilmesi.
 
 ---
 *Bu belge #2-upschool-question ödevi kapsamında hazırlanmıştır.*
+
