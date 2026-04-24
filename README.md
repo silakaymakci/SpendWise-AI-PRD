@@ -1,27 +1,30 @@
-# SynthFinance AI - Sentetik Finansal Veri Üreticisi (PRD)
+# SynthFinance AI - Sentetik Finansal Veri Üreticisi
 
 ## 1. Proje Özeti
 SynthFinance AI, gerçek kullanıcı verilerini riske atmadan, makine öğrenmesi modellerini eğitmek ve test etmek için gerçekçi ancak tamamen yapay (sentetik) finansal zaman serisi verileri üreten bir sistemdir.
 
 ## 2. Hedef Kitle
 - Finansal modelleme üzerinde çalışan veri bilimciler.
-- Veri gizliliği (GDPR/KVKK) endişesi olan FinTech geliştiricileri.
-- Algoritmik ticaret stratejilerini test etmek isteyen araştırmacılar.
+- Veri gizliliği endişesi olan FinTech geliştiricileri.
 
 ## 3. MVP (Minimum Uygulanabilir Ürün) Kapsamı
-- **Veri Modelleme:** Rastgele yürüyüş (random walk) ve Monte Carlo simülasyonu kullanarak sentetik borsa/fiyat verisi oluşturma.
-- **Parametrik Ayarlar:** Kullanıcının volatilite (oynaklık) ve trend gibi değişkenleri belirleyebilmesi.
-- **Export Özelliği:** Üretilen veriyi CSV formatında dışa aktarma (model eğitimi için hazır formatta).
+- **Veri Modelleme:** Geometrik Brownian Hareketi (GBM) kullanarak sentetik borsa verisi üretimi.
+- **Parametrik Ayarlar:** Oynaklık ve trend belirleme.
+- **Export Özelliği:** Veriyi CSV olarak indirme.
 
 ## 4. Teknik Gereksinimler
 - **Dil:** Python
-- **Matematiksel Modeller:** Olasılık dağılımları (Normal Dağılım), Stokastik Süreçler.
-- **Kütüphaneler:** NumPy, Pandas, Matplotlib/Seaborn (görselleştirme için).
-- **Arayüz:** Streamlit (Kullanıcı parametreleri ayarlayıp "Generate" butonuna basacak).
+- **Matematiksel Modeller:** Stokastik Süreçler.
+- **Kütüphaneler:** NumPy, Pandas, Matplotlib.
 
 ## 5. Başarı Metrikleri
-- Üretilen verilerin istatistiksel özelliklerinin (mean, variance) gerçek borsa verileriyle benzerlik göstermesi.
-- Kullanıcı dostu arayüz üzerinden verinin 3 saniye içinde üretilmesi.
+- İstatistiksel uyumluluk ve hızlı veri üretimi.
+
+## 6. Teknik Mimari
+- **Backend:** Python (FastAPI) - Veri simülasyon motoru.
+- **Frontend:** Streamlit - Kullanıcı arayüzü ve görselleştirme.
+
+*Detaylı plan için lütfen `plan.md` dosyasına bakınız.*
 
 ---
 *Bu belge #2-upschool-question ödevi kapsamında hazırlanmıştır.*
