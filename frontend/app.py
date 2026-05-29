@@ -28,17 +28,17 @@ st.title("🧠 SynthFinance AI - Akıllı Finansal Simülasyon")
 st.subheader("FastAPI Backend Bağlantılı & Makine Öğrenmesi Destekli Zaman Serisi Platformu")
 
 if generate_btn:
-    with st.spinner('Frontend, FastAPI Backend servisine bağlanıyor ve AI Modeli eğitiliyor...'):
+    with st.spinner('Frontend, Canlı FastAPI Backend servisine bağlanıyor ve AI Modeli eğitiliyor...'):
         try:
-            # BACKEND ENTEGRASYONU (Uçtan uca bağlantı noktası)
-            backend_url = "http://127.0.0.1:8000/generate-data"
+            # CANLI BACKEND ENTEGRASYONU (Hugging Face Spaces Canlı Bağlantısı)
+            backend_url = "https://silakaymakci-synthfinance-backend.hf.space/generate-data"
             payload = {
                 "start_price": start_price,
                 "volatility": volatility,
                 "days": days
             }
             
-            # Backend'e istek atıyoruz
+            # Canlı Backend'e istek atıyoruz
             response = requests.post(backend_url, json=payload)
             result = response.json()
             
@@ -75,7 +75,6 @@ if generate_btn:
                 st.download_button("Sentetik Veri Setini CSV Olarak İndir", csv, "synth_finance_ai_data.csv", "text/csv")
                 
         except requests.exceptions.ConnectionError:
-            st.error("❌ Backend servisine bağlanılamadı! Lütfen yerelde FastAPI (Uvicorn) sunucunuzun çalışıp çalışmadığını kontrol edin.")
-            st.info("💡 İpucu: Terminalde `uvicorn main:app --reload` komutunu çalıştırdığınızdan emin olun.")
+            st.error("❌ Canlı Backend servisine bağlanılamadı! Lütfen Hugging Face Space sunucunuzun çalışıp çalışmadığını kontrol edin.")
 else:
     st.info("Modeli çalıştırmak ve yapay zeka tahmin raporunu oluşturmak için sol taraftaki panelden butonuna basınız.")
