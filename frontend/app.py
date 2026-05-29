@@ -1,67 +1,81 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
-import time
+import requests
 
-# 1. Sayfa Konfigürasyonu (Tarayıcı sekmesindeki isim ve ikon)
-st.set_page_config(page_title="SynthFinance AI", page_icon="📈", layout="wide")
+st.set_page_config(page_title="SynthFinance AI", page_icon="🧠", layout="wide")
 
-# 2. Tasarım Sistemi (Design System) - CSS Dokunuşları
+# Tasarım Sistemi (Design System)
 st.markdown("""
     <style>
     .main { background-color: #0e1117; }
-    .stButton>button { width: 100%; border-radius: 8px; background-color: #2e7d32; color: white; border: none; }
-    .stButton>button:hover { background-color: #1b5e20; border: none; }
-    h1, h2, h3 { color: #ffffff; font-family: 'Inter', sans-serif; }
+    .stButton>button { width: 100%; border-radius: 5px; height: 3em; background-color: #1f77b4; color: white; font-weight: bold; }
+    .stSidebar { background-color: #161b22; }
+    div[data-testid="stMetricValue"] { color: #00ffcc; }
+    .ai-box { background-color: #1e293b; padding: 20px; border-radius: 10px; border-left: 5px solid #38bdf8; margin-bottom: 20px; }
     </style>
     """, unsafe_allow_html=True)
 
-# 3. Sol Panel (Sidebar) - Kullanıcı Girişleri
-st.sidebar.title("⚙️ Parametreler")
-st.sidebar.info("Modelin sentetik veri üretmesi için değerleri giriniz.")
+# Yan Panel (Parametreler)
+st.sidebar.header("🛠️ Simülasyon & AI Ayarları")
+start_price = st.sidebar.number_input("Başlangıç Fiyatı ($)", value=100.0, step=10.0)
+volatility = st.sidebar.slider("Oynaklık (Volatility %)", 5, 100, 25)
+days = st.sidebar.slider("Gün Sayısı", 30, 365, 90)
 
-start_price = st.sidebar.number_input("Başlangıç Fiyatı ($)", min_value=1.0, value=100.0)
-volatility = st.sidebar.slider("Oynaklık (Volatilite %)", 1, 100, 20)
-days = st.sidebar.slider("Gün Sayısı (Simülasyon Süresi)", 7, 365, 90)
+generate_btn = st.sidebar.button("Uçtan Uca Veri ve AI Analizi Üret")
 
-generate_btn = st.sidebar.button("Sentetik Veri Oluştur")
-
-# 4. Mock Veri Fonksiyonu (Haftaya Backend'e bağlanacak kısım)
-def create_mock_data(base, vol, period):
-    # Basit bir finansal hareket simülasyonu
-    change = np.random.normal(0, vol/100, period)
-    price_series = base * (1 + change).cumprod()
-    dates = pd.date_range(start="2026-01-01", periods=period)
-    return pd.DataFrame({"Tarih": dates, "Fiyat": price_series})
-
-# 5. Ana Ekran İçeriği
-st.title("📈 SynthFinance AI")
-st.write("Finansal modeller için yapay veri üretim arayüzü.")
+# Ana Ekran
+st.title("🧠 SynthFinance AI - Akıllı Finansal Simülasyon")
+st.subheader("FastAPI Backend Bağlantılı & Makine Öğrenmesi Destekli Zaman Serisi Platformu")
 
 if generate_btn:
-    # Yüklenme efekti (Hocaların sevdiği bir detay)
-    with st.spinner('Matematiksel model çalıştırılıyor...'):
-        time.sleep(1.5) # Gerçekçi bekleme süresi
-        
-        # Veriyi oluştur
-        df = create_mock_data(start_price, volatility, days)
-        
-        # Üst Metrikler
-        m1, m2, m3 = st.columns(3)
-        current_val = df['Fiyat'].iloc[-1]
-        m1.metric("Son Değer", f"${current_val:.2f}")
-        m2.metric("En Yüksek", f"${df['Fiyat'].max():.2f}")
-        m3.metric("Değişim", f"%{((current_val/start_price)-1)*100:.2f}")
-        
-        # Çizgi Grafik
-        st.subheader("Simülasyon Grafiği")
-        st.line_chart(df.set_index("Tarih"))
-        
-        # Veri Tablosu ve İndirme
-        with st.expander("Ham Verileri Gör ve İndir"):
-            st.dataframe(df, use_container_width=True)
-            csv = df.to_csv(index=False).encode('utf-8')
-            st.download_button("Veriyi CSV Olarak İndir", csv, "data.csv", "text/csv")
+    with st.spinner('Frontend, FastAPI Backend servisine bağlanıyor ve AI Modeli eğitiliyor...'):
+        try:
+            # BACKEND ENTEGRASYONU (Uçtan uca bağlantı noktası)
+            backend_url = "http://127.0.0.1:8000/generate-data"
+            payload = {
+                "start_price": start_price,
+                "volatility": volatility,
+                "days": days
+            }
+            
+            # Backend'e istek atıyoruz
+            response = requests.post(backend_url, json=payload)
+            result = response.json()
+            
+            if result["status"] == "success":
+                prices = result["data"]
+                ai_data = result["ai_analysis"]
+                
+                # Tarih indeksleme
+                dates = pd.date_range(start="2026-01-01", periods=days)
+                df = pd.DataFrame({"Tarih": dates, "Simüle Edilen Fiyat": prices})
+                df.set_index("Tarih", inplace=True)
+                
+                # --- AI İÇGÖRÜ PANELİ ---
+                st.markdown(f"""
+                <div class="ai-box">
+                    <h4>🤖 Yapay Zeka Analist Raporu</h4>
+                    <p><b>Trend Durumu:</b> {ai_data['ai_insight']}</p>
+                    <p><b>AI Model Güven Skoru (R²):</b> %{ai_data['model_accuracy_score']*100:.2f}</p>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                # Metrik Kutuları
+                col1, col2, col3 = st.columns(3)
+                col1.metric("Mevcut Fiyat (Son Gün)", f"${prices[-1]:.2f}")
+                col2.metric("En Yüksek Seviye", f"${max(prices):.2f}")
+                col3.metric("AI Gelecek (10. Gün) Tahmini", f"${ai_data['ai_predictions'][-1]:.2f}")
+                
+                # Grafik Alanı
+                st.write("### 📊 Finansal Zaman Serisi Grafiği")
+                st.line_chart(df)
+                
+                # Veri İndirme
+                csv = df.to_csv().encode('utf-8')
+                st.download_button("Sentetik Veri Setini CSV Olarak İndir", csv, "synth_finance_ai_data.csv", "text/csv")
+                
+        except requests.exceptions.ConnectionError:
+            st.error("❌ Backend servisine bağlanılamadı! Lütfen yerelde FastAPI (Uvicorn) sunucunuzun çalışıp çalışmadığını kontrol edin.")
+            st.info("💡 İpucu: Terminalde `uvicorn main:app --reload` komutunu çalıştırdığınızdan emin olun.")
 else:
-    # İlk açılışta görünecek boş ekran mesajı
-    st.warning("Lütfen sol taraftan parametreleri seçip butona basarak simülasyonu başlatın.")
+    st.info("Modeli çalıştırmak ve yapay zeka tahmin raporunu oluşturmak için sol taraftaki panelden butonuna basınız.")
