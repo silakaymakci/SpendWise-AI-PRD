@@ -1,0 +1,17 @@
+# Python otomatik oluşturulan dosyalar
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Sanal ortamlar (Virtual Environments)
+.venv/
+venv/
+ENV/
+env/
+
+# Çevre değişkenleri (Hassas şifreler/anahtarlar)
+.env
+
+# İşletim sistemi kalıntıları
+.DS_Store
+Thumbs.db
