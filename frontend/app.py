@@ -60,27 +60,27 @@ if generate_btn:
                 </div>
                 """, unsafe_allow_html=True)
                 
-                # --- YENİ BAŞLAYANLAR İÇİN DİNAMİK TREND UYARILARI VE SÖZLÜK ---
-                # Gelen trend verisinde 'Boğa' veya 'Ayı' (veya İngilizceleri) geçiyorsa kullanıcıyı yakalıyoruz
+                # --- YENİ BAŞLAYANLAR İÇKİN DİNAMİK TREND AÇIKLAMALARI ---
+                # Hata veren help parametreleri temizlendi, açıklamalar doğrudan kutu içine alındı
                 trend_text = str(ai_data['ai_insight']).lower()
                 
                 if "boğa" in trend_text or "bull" in trend_text:
                     st.success(
-                        "🐂 **Mevcut Piyasa Yapısı: Boğa Yapısı (Yükseliş Trendi)**",
-                        help="Boğa Piyasası: Fiyatların yükselme eğiliminde olduğu, yatırımcıların iyimser olduğu ve alıcıların piyasaya hakim olduğu dönemleri ifade eder."
+                        "🐂 **Mevcut Piyasa Yapısı: Boğa Yapısı (Yükseliş Trendi)**\n\n"
+                        "💡 *Nedir? -> Boğa Piyasası: Fiyatların genel olarak yükseliş eğiliminde olduğu, yatırımcıların iyimser baktığı ve alıcıların piyasaya hakim olduğu dönemleri ifade eder.*"
                     )
                 elif "ayı" in trend_text or "bear" in trend_text:
                     st.error(
-                        "🐻 **Mevcut Piyasa Yapısı: Ayı Yapısı (Düşüş Trendi)**",
-                        help="Ayı Piyasası: Fiyatların düşüş trendinde olduğu, piyasada genel bir karamsarlığın hakim olduğu ve satıcıların baskın geldiği dönemleri ifade eder."
+                        "🐻 **Mevcut Piyasa Yapısı: Ayı Yapısı (Düşüş Trendi)**\n\n"
+                        "💡 *Nedir? -> Ayı Piyasası: Fiyatların sürekli düşüş trendinde olduğu, piyasada genel bir karamsarlığın hakim olduğu ve satıcıların baskın geldiği dönemleri ifade eder.*"
                     )
                 else:
                     st.info(
-                        "⚖️ **Mevcut Piyasa Yapısı: Yatay / Belirsiz Trend**",
-                        help="Piyasa şu an net bir yöne (aşağı veya yukarı) sahip değil. Alıcılar ve satıcılar dengede görünüyor."
+                        "⚖️ **Mevcut Piyasa Yapısı: Yatay / Belirsiz Trend**\n\n"
+                        "💡 *Nedir? -> Yatay Piyasa: Piyasanın şu an net bir yöne (aşağı veya yukarı) sahip olmadığını, alıcılar ve satıcıların dengede olduğunu gösterir.*"
                     )
                 
-                # Metrik Kutuları (Buradaki help parametreleri sağ üstte soru işareti (?) çıkarır)
+                # Metrik Kutuları (Buradaki orijinal help parametreleri sorunsuz çalışır)
                 col1, col2, col3 = st.columns(3)
                 
                 col1.metric(
