@@ -24,6 +24,8 @@ SynthFinance AI, gerçek kullanıcı verilerini riske atmadan, makine öğrenmes
 - **Backend:** Python (FastAPI) - Veri simülasyon motoru.
 - **Frontend:** Streamlit - Kullanıcı arayüzü ve görselleştirme.
 
+##🚀 **Uygulamayı Canlı Dene:** [https://spendwise-ai-prd-npv7lwpmwdd2pctxk7wfcq.streamlit.app](https://spendwise-ai-prd-npv7lwpmwdd2pctxk7wfcq.streamlit.app)
+
 *Detaylı plan için lütfen `plan.md` dosyasına bakınız.*
 
 ---
